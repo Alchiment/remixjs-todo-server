@@ -1,0 +1,83 @@
+enum UserType {
+    provider,
+    client
+}
+
+type Query {
+    users: [User]
+    user(id: String!): User
+    todos: [Todo]
+    todo(id: String!): Todo
+}
+
+type Mutation {
+    createUser(input: UserInput!): User
+    updateUser(input: UserInput!): User
+    createTodo(input: TodoInput!): Todo
+    updateTodo(input: TodoInput!): Todo
+    deleteTodo(id: String!): String
+    destroyTodo(id: String!): String
+}
+
+# types
+type User {
+    _id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    identification: String
+    identification_type: String
+    type: [UserType]
+    mobile: String
+    address: UserAddress
+    password: String
+}
+
+type UserAddress {
+    address: String
+    city: String
+    department: String
+    country: String
+    zipCode: String
+}
+
+type Todo {
+    _id: ID!
+    title: String
+    description: String
+    completed: Boolean
+    isDeleted: Boolean
+    user: User!
+}
+
+# Inputs
+
+input UserInput {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    email: String!
+    identification: String!
+    identification_type: String!
+    type: [UserType]
+    mobile: String
+    address: UserAddressInput
+    password: String
+}
+
+input UserAddressInput {
+    address: String
+    city: String
+    department: String
+    country: String
+    zipCode: String
+}
+
+input TodoInput {
+    _id: ID
+    title: String!
+    description: String
+    completed: Boolean
+    isDeleted: Boolean
+    user: UserInput!
+}
